@@ -28,33 +28,33 @@ public class GoogleApiUtils {
 
     public static List<Store> sortedStores(User user) {
         List<Store> stores = (List<Store>) storeService.getAll();
-        stores.sort((Store o1, Store o2) -> {
-            GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyC4x39YK96qpnY_7lfUxL9A1rJqolx3rXE");
-            DirectionsRoute[] result1 = null;
-            try {
-                result1 = DirectionsApi.getDirections(context, user.getCountry() + ", " +
-                                user.getCity() + ", " + user.getStreet() + ", " + user.getHousenumber(),
-                        o1.getCountry() + ", " +
-                                o1.getCity() + ", " + o1.getStreet() + ", " + o1.getHousenumber()).await();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            DirectionsRoute[] result2 = null;
-            try {
-                result2 = DirectionsApi.getDirections(context,
-                        user.getCountry() + ", " + user.getCity() + ", " + user.getStreet() + ", "
-                                + user.getHousenumber(),
-                        o2.getCountry() + ", " + o2.getCity() + ", " + o2.getStreet() + ", "
-                                + o2.getHousenumber()).await();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//         stores.sort((Store o1, Store o2) -> {
+//             GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyC4x39YK96qpnY_7lfUxL9A1rJqolx3rXE");
+//             DirectionsRoute[] result1 = null;
+//             try {
+//                 result1 = DirectionsApi.getDirections(context, user.getCountry() + ", " +
+//                                 user.getCity() + ", " + user.getStreet() + ", " + user.getHousenumber(),
+//                         o1.getCountry() + ", " +
+//                                 o1.getCity() + ", " + o1.getStreet() + ", " + o1.getHousenumber()).await();
+//             } catch (Exception e) {
+//                 e.printStackTrace();
+//             }
+//             DirectionsRoute[] result2 = null;
+//             try {
+//                 result2 = DirectionsApi.getDirections(context,
+//                         user.getCountry() + ", " + user.getCity() + ", " + user.getStreet() + ", "
+//                                 + user.getHousenumber(),
+//                         o2.getCountry() + ", " + o2.getCity() + ", " + o2.getStreet() + ", "
+//                                 + o2.getHousenumber()).await();
+//             } catch (Exception e) {
+//                 e.printStackTrace();
+//             }
 
-            List<DirectionsRoute> routes1 = sortRoute(result1);
-            List<DirectionsRoute> routes2 = sortRoute(result2);
-            return Long.compare(routes1.get(0).legs[0].duration.inSeconds,
-                    routes2.get(0).legs[0].duration.inSeconds);
-        });
+//             List<DirectionsRoute> routes1 = sortRoute(result1);
+//             List<DirectionsRoute> routes2 = sortRoute(result2);
+//             return Long.compare(routes1.get(0).legs[0].duration.inSeconds,
+//                     routes2.get(0).legs[0].duration.inSeconds);
+//         });
 
         return stores;
     }
@@ -74,16 +74,16 @@ public class GoogleApiUtils {
     }
 
     public static boolean checkAddress (User user){
-        String country = "Ukraine, Kharkiv, Sumskaya, 50";
-        GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyC4x39YK96qpnY_7lfUxL9A1rJqolx3rXE");
-        DirectionsRoute[] result1 = null;
-        try {
-            result1 = DirectionsApi.getDirections(context, user.getCountry() + ", " +
-                            user.getCity() + ", " + user.getStreet() + ", " + user.getHousenumber(),
-                    country).await();
-        } catch (Exception e) {
-            return false;
-        }
+//         String country = "Ukraine, Kharkiv, Sumskaya, 50";
+//         GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyC4x39YK96qpnY_7lfUxL9A1rJqolx3rXE");
+//         DirectionsRoute[] result1 = null;
+//         try {
+//             result1 = DirectionsApi.getDirections(context, user.getCountry() + ", " +
+//                             user.getCity() + ", " + user.getStreet() + ", " + user.getHousenumber(),
+//                     country).await();
+//         } catch (Exception e) {
+//             return false;
+//         }
         return true;
     }
 }
