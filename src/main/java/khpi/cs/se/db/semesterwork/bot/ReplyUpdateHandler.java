@@ -184,7 +184,7 @@ public class ReplyUpdateHandler {
                 "Order # " + order.getIdOrder(),
                 "List of the product:\n" + orderInfoToString(order) + "\nYour discount: " + u.getUserRole().getDiscount() + "%",
                 "BestBotMarketPayload",
-                "284685063:TEST:MWNjNjk3MGU1ODJl",
+                "284685063:TEST:MDJlMjI1Yjc0YjRj",
                 "my_start_param",
                 "USD",
                 new LabeledPrice(
