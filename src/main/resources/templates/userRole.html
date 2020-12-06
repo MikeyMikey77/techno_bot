@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <title>User role</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700"
+          th:href="@{https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700}"
+          rel="stylesheet"/>
+
+    <!-- Template Styles -->
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}"/>
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" th:href="@{/css/normalize.css}"/>
+
+    <!-- Milligram CSS minified -->
+    <link rel="stylesheet" th:href="@{/css/milligram.min.css}"/>
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="row">
+    <div th:include="fragments :: menu"></div>
+    <section class="column column-offset-20">
+        <div class="card-deck mr-3 mt-3">
+            <div class="card">
+                <div class="card-title">
+                    <h1>Add new role</h1>
+                </div>
+                <div>
+                    <form id="add" method="post" th:action="@{/users}">
+                        <fieldset class="ml-3 mt-2 mr-3">
+                            <input type="text" name="title" placeholder="Enter title here..." required="required"/>
+                            <br/>
+                            <textarea form="add" rows="10" type="text" name="description"
+                                      placeholder="Enter description here..."></textarea>
+                            <br/>
+                            <input type="number" name="discount" min="0" max="100" required="required"/>
+                            <br/>
+                            <input type="submit" name="add" value="Add new role"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card-deck mr-3 mt-3" th:each="item:${customerRoles}">
+            <div class="card" th:each="role:${item}">
+                <div class="card-body">
+                    <form th:id="${role.getIdRole()}" method="post" th:action="@{/users}">
+                        <input type="hidden" name="idRole" th:value="${role.getIdRole()}"/>
+                        <input type="text" name="title" th:value="${role.getTitle()}" required="required"/>
+                        <br/>
+                        <input type="number" min="0" name="discount" th:value="${role.getDiscount()}"
+                               placeholder="Enter price here.." required="required"/>
+                        <textarea th:form="${role.getIdRole()}" rows="10" type="text" name="description"
+                                  th:value="${role.getDescription()}" th:text="${role.getDescription()}"></textarea>
+                        <hr/>
+                        <p class="card-text" th:text="${role.getUsers().size()}"></p>
+                        <input type="submit" name="update" value="Update"/>
+                        <input type="submit" name="delete" value="Delete"/>
+                    </form>
+                    <div class="card-footer">
+                        <div class="column-center">
+                            <a th:href="@{/users/{id}(id = ${role.getIdRole()})}">
+                                <button class="button-primary column-center">Watch Users</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html> 

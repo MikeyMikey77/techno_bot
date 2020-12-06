@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <title>Orders</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700"
+          rel="stylesheet"/>
+
+    <!-- Template Styles -->
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}"/>
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" href="../static/css/normalize.css" th:href="@{css/normalize.css}"/>
+
+    <!-- Milligram CSS minified -->
+    <link rel="stylesheet" href="../static/css/milligram.min.css" th:href="@{/css/milligram.min.css}"/>
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}"/>
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="row">
+    <div th:include="fragments :: menu"></div>
+    <section class="column column-offset-20">
+        <div class="card-deck mr-3 mt-3" th:each="item:${orders}">
+            <div class="card" th:each="ord:${item}">
+                <form th:id="${ord.getIdOrder()}"
+                      method="post">
+                    <fieldset>
+                        <label class="ml-2">Id order:</label>
+                        <br/>
+                        <input type="number" name="idOrder" th:value="${ord.getIdOrder()}" readonly="readonly"/>
+                        <br/>
+                        <label class="ml-2">Date of Creation:</label>
+                        <br/>
+                        <p class="ml-3" th:text="${ord.getDateOfCreation()}"></p>
+                        <label class="ml-2">Order State</label>
+                        <p class="ml-2" th:text="${ord.getOrderState().getTitle()}"></p>
+                        <div class="ml-3">
+                            <input type="submit" class="button-primary mt-2 ml-3" name="products" value="Watch Products"/>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html> 

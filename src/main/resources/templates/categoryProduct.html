@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <title>Category product</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700"
+          rel="stylesheet"/>
+
+    <!-- Template Styles -->
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}"/>
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" th:href="@{/css/normalize.css}"/>
+
+    <!-- Milligram CSS minified -->
+    <link rel="stylesheet" th:href="@{/css/milligram.min.css}"/>
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="row">
+    <div th:include="fragments :: menu"></div>
+    <section class="column column-offset-20">
+        <div class="card-deck mr-3 mt-3">
+            <div class="card">
+                <div class="card-title">
+                    <h2>Add new category</h2>
+                </div>
+                <div class="card-body">
+                    <form id="addCategory" th:action="@{/products}" method="post">
+                        <input type="text" name="title" placeholder="Enter title..."/>
+                        <textarea form="addCategory" type="text" placeholder="Enter description... " name="description"></textarea>
+                        <input class="button-primary" type="submit" name="addCategory" value="Add Category"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card-deck mr-3 mt-3" th:each="item:${productTypes}">
+            <div class="card" th:each="type:${item}">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${type.getTitle()}">Category:</h5>
+                    <p class="card-text" th:text="${type.getDescription()}">Description of category:</p>
+                    <hr/>
+                    <p class="card-text" th:text="${type.getProducts().size()}"></p>
+                    <div class="card-footer">
+                        <form th:action="@{/products/{id}(id = ${type.getIdProductType()})}" method="post">
+                            <div class="column-center">
+                                <input type="submit" class="button-primary column-center" name="load" value="Watch Products"/>
+                                <input type="submit" class="button-primary column-center" name="deleteAll" value="Delete category"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html> 

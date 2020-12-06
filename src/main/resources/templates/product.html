@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <title>Product</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700"
+          rel="stylesheet"/>
+
+    <!-- Template Styles -->
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}"/>
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" th:href="@{/css/normalize.css}"/>
+
+    <!-- Milligram CSS minified -->
+    <link rel="stylesheet" th:href="@{/css/milligram.min.css}"/>
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="row">
+    <div th:include="fragments :: menu"></div>
+    <section class="column column-offset-20">
+        <div class="card-deck mr-3 mt-3">
+            <div class="card">
+                <div class="card-title">
+                    <h2>Add new product</h2>
+                </div>
+                <div class="card-body">
+                    <form id="addProduct" method="post" enctype="multipart/form-data">
+                        <input class=" ml-3 mt-3" type="file" name="photo"/>
+                        <br/>
+                        <input type="text" name="title" placeholder="Enter title..." required="required"/>
+                        <textarea form="addProduct" type="text" placeholder="Enter description... " name="description"></textarea>
+                        <input type="number" name="price" step="1" placeholder="Enter price..." required="required"/>
+                        <br/>
+                        <input class="button-primary" type="submit" name="addProduct" value="Add Product"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card-deck mr-3 mt-3" th:each="item:${products}">
+            <div class="card" th:each="product:${item}">
+                <form th:id="${product.getIdProduct()}"
+                      enctype="multipart/form-data" method="post">
+                    <fieldset>
+                        <img class="ml-3" height="150" th:src="${product.getUrlPhoto()}"/>
+                        <br/>
+                        <input class=" ml-3 mt-3" type="file" name="photo"/>
+                        <br/>
+                        <input type="number" name="idProduct" th:value="${product.getIdProduct()}" readonly="readonly"/>
+                        <br/>
+                        <input  type="text" name="title" th:value="${product.getTitle()}"/>
+                        <br/>
+                        <textarea th:form="${product.getIdProduct()}" rows="10" type="text" name="description"
+                                   th:value="${product.getDescription()}" th:text="${product.getDescription()}"></textarea>
+                        <br/>
+                        <label class="ml-3">Price</label>
+                        <input type="number" name="price" placeholder="Enter price..." pattern="(\d*)(.{0,1})(\d*)" th:value="${product.getPrice()}"/>
+                        <br/>
+                        <div class="ml-3">
+                            <input  type="submit" class="button-primary" name="update" value="Update"/>
+                            <input type="submit" class="button-primary" name="delete" value="Delete"/>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html> 

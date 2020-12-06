@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <title>Supplies</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700" th:href="@{https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700}" rel="stylesheet"/>
+
+    <!-- Template Styles -->
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}"/>
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" th:href="@{/css/normalize.css}"/>
+
+    <!-- Milligram CSS minified -->
+    <link rel="stylesheet" th:href="@{/css/milligram.min.css}"/>
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="row">
+    <div th:include="fragments :: menu"></div>
+    <section class="column column-offset-20 mr-3">
+        <div class="row grid-responsive">
+            <div class="column ">
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Add supply</h3>
+                    </div>
+                    <div class="card-block">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Store</th>
+                                <th>Count</th>
+                                <th>Add</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <form id="add" method="post">
+                                    <td>
+                                        <select name="prodId" form="add">
+                                            <option th:each="var : ${products}"
+                                                    th:value="${var.getIdProduct()}"
+                                                    th:text="${var.getTitle()}">Some product
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="storeId" form="add">
+                                            <option th:each="var : ${stores}"
+                                                    th:value="${var.getIdStore()}"
+                                                    th:text="${var.getTitle()}">Store
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td><input type="number" step="1" name="count"/></td>
+                                    <td><input type="submit" name="addSupply" value="Add"/></td>
+                                </form>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Supplies</h3>
+                    </div>
+                    <div class="card-block">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Store</th>
+                                <th>Count</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item : ${supplies}">
+                                <form th:id="${item.getIdSupply()}" method="post">
+                                    <td><input type="hidden" name="idSupply" th:value="${item.getIdSupply()}"/>
+                                        <select name="prodId" th:form="${item.getIdSupply()}">
+                                            <option th:each="var : ${products}"
+                                                    th:value="${var.getIdProduct()}"
+                                                    th:text="${var.getTitle()}">Some product
+                                            </option>
+                                            <option selected="selected"
+                                                    th:value="${item.getProduct().getIdProduct()}"
+                                                    th:text="${item.getProduct().getTitle()}">Product
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="storeId" th:form="${item.getIdSupply()}">
+                                            <option th:each="var : ${stores}"
+                                                    th:value="${var.getIdStore()}"
+                                                    th:text="${var.getTitle()}">Store
+                                            </option>
+                                            <option selected="selected"
+                                                    th:value="${item.getStore().getIdStore()}"
+                                                    th:text="${item.getStore().getTitle()}">Store
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td><input type="number" step="1" name="count" th:value="${item.getCount()}"/></td>
+                                    <td><input type="submit" name="update" value="Update"/></td>
+                                    <td><input type="submit" name="delete" value="Delete"/></td>
+                                </form>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html> 

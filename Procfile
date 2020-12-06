@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar -Dspring.profiles.active=product target/semesterwork-0.0.1.jar

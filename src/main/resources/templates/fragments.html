@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="menu">
+    <div id="sidebar" class="column">
+        <h5>Navigation</h5>
+        <ul>
+            <li><a th:href="@{/}"><em class="fa fa-home"></em> Logs</a></li>
+            <li><a th:href="@{/statistic}"><em class="fa fa-line-chart"></em> Statistic</a></li>
+            <li><a th:href="@{/orders}"><em class = "fa fa-table"></em> Orders</a></li>
+            <li><a th:href="@{/products}"><em class="fa fa-table"></em> Products</a></li>
+            <li><a th:href="@{/users}"><em class="fa fa-table"></em> Customers</a></li>
+            <li><a th:href="@{/supplies}"><em class="fa fa-table"></em> Suppliers</a></li>
+            <li><a th:href="@{/stores}"><em class="fa fa-table"></em> Stores</a></li>
+            <li><a th:href="@{/logout}"><em class="fa fa-sign-out"></em>LogOut</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
